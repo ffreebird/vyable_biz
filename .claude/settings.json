@@ -1,0 +1,13 @@
+{
+  "project": {
+    "name": "vyable-biz",
+    "description": "AI Agent를 위한 완벽한 지시서 생성기"
+  },
+  "rules": {
+    "alwaysRead": ["CLAUDE.md", ".agents/rules/general.md"],
+    "onApiWork": [".agents/rules/api.md"],
+    "onWebWork": [".agents/rules/web.md"],
+    "onSharedWork": [".agents/rules/shared.md"],
+    "criticalDocs": ["docs/process/Interview_Process_Log.md", "docs/templates/RFP_Schema.md"]
+  }
+}
