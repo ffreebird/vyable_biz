@@ -22,7 +22,7 @@ AI Agent를 위한 완벽한 지시서(RFP) 생성기
 | Web | React 19 + Vite 6 + Tailwind CSS 4 |
 | Shared | TypeScript + Zod |
 | Lint/Format | Biome |
-| AI | Gemini 2.0 Flash (인터뷰) + Claude Opus 4.5 (RFP 생성) |
+| AI | Gemini 3.0 Flash (인터뷰) + Claude Opus 4.5 (RFP 생성) |
 
 ## Project Structure
 
