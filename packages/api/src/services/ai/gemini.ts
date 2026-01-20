@@ -1,13 +1,36 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+const API_KEY = process.env.GOOGLE_AI_API_KEY || '';
+const BASE_URL = 'https://aiplatform.googleapis.com/v1/publishers/google/models';
+const MODEL = 'gemini-3-flash-preview';
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY || '');
-
-export const gemini = genAI.getGenerativeModel({
-  model: 'gemini-3.0-flash',
-});
+interface GeminiResponse {
+  candidates: {
+    content: {
+      role: string;
+      parts: { text: string }[];
+    };
+    finishReason: string;
+  }[];
+}
 
 export async function generateWithGemini(prompt: string): Promise<string> {
-  const result = await gemini.generateContent(prompt);
-  const response = result.response;
-  return response.text();
+  const response = await fetch(
+    `${BASE_URL}/${MODEL}:generateContent?key=${API_KEY}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      }),
+    },
+  );
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Gemini API error: ${response.status} - ${error}`);
+  }
+
+  const data = (await response.json()) as GeminiResponse;
+  return data.candidates[0]?.content?.parts[0]?.text || '';
 }
