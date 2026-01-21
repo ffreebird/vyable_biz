@@ -1,7 +1,7 @@
 import type { Option, ValidationResult } from '@vyable/shared';
 import { PHASE_CONFIG, STEP_CONFIG, checkLogicalSeed, isLogicalSeedValid } from '@vyable/shared';
 import type { InterviewStep, Project } from '../../db/schema';
-import { generateWithGemini } from './gemini';
+import { generateWithGemini } from '@vyable/core';
 
 interface GeneratedQuestion {
   text: string;

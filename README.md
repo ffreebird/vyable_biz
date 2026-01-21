@@ -1,16 +1,21 @@
-# Vyable Biz
+# Vyable
 
+AI 기반 제품 개발 도구 모음
+
+## Projects
+
+### Vyable Biz (projects/biz)
 AI Agent를 위한 완벽한 지시서(RFP) 생성기
 
 비개발자도 대화형 인터뷰를 통해 AI가 이해할 수 있는 프로젝트 정의서를 쉽게 만들 수 있습니다.
 
-## Features
-
 - **대화형 인터뷰**: AI가 질문하고, 사용자는 답하기만 하면 됩니다
-- **4-Phase 시스템**: Seed(제품 정의) → Sprout(시장 검증) → Tree(사업 운영) → Final(마무리)
+- **4-Phase 시스템**: Seed → Sprout → Tree → Final
 - **20-Step 구조화 질문**: 체계적인 질문으로 빠짐없이 정보 수집
 - **자동 RFP 생성**: 답변을 바탕으로 AI Agent가 이해할 수 있는 문서 자동 생성
-- **실시간 진행률**: 완성도를 실시간으로 확인
+
+### Vyable PM (projects/pm) - Coming Soon
+RFP 기반 디자인 스프린트 도구
 
 ## Tech Stack
 
@@ -22,19 +27,23 @@ AI Agent를 위한 완벽한 지시서(RFP) 생성기
 | Web | React 19 + Vite 6 + Tailwind CSS 4 |
 | Shared | TypeScript + Zod |
 | Lint/Format | Biome |
-| AI | Gemini 3.0 Flash (인터뷰) + Claude Opus 4.5 (RFP 생성) |
+| AI | Gemini 3 Flash (인터뷰) + Claude Opus 4.5 (RFP 생성) |
 
 ## Project Structure
 
 ```
-vyable_biz/
+vyable/
 ├── packages/
-│   ├── shared/          # 공유 타입, 스키마, 상수
-│   ├── api/             # Hono 백엔드 서버
-│   └── web/             # React 프론트엔드
-├── docs/                # 문서
-├── data/                # 로컬 데이터 (gitignore)
-└── .agents/rules/       # AI 에이전트 규칙
+│   └── core/               # 공유 AI 클라이언트
+├── projects/
+│   ├── biz/                # RFP 생성
+│   │   ├── packages/
+│   │   │   ├── api/        # Hono 백엔드
+│   │   │   ├── web/        # React 프론트엔드
+│   │   │   └── shared/     # biz 전용 타입/스키마
+│   │   └── docs/           # biz 문서
+│   └── pm/                 # 디자인 스프린트 (예정)
+└── README.md
 ```
 
 ## Getting Started
@@ -49,9 +58,9 @@ vyable_biz/
 # 의존성 설치
 bun install
 
-# 데이터베이스 마이그레이션
-bun run db:generate
-bun run db:migrate
+# 데이터베이스 마이그레이션 (biz)
+bun run db:biz:generate
+bun run db:biz:migrate
 ```
 
 ### Environment Variables
@@ -64,21 +73,21 @@ cp .env.example .env
 
 ```env
 # AI API Keys
-GEMINI_API_KEY=your_gemini_api_key
+GOOGLE_AI_API_KEY=your_vertex_ai_api_key
 ANTHROPIC_API_KEY=your_anthropic_api_key
 ```
 
 ### Development
 
 ```bash
-# API 서버 (localhost:3001)
-bun dev:api
+# Biz 전체 실행
+bun run dev:biz
 
-# Web 서버 (localhost:5173)
-bun dev:web
+# Biz API만 실행 (localhost:3001)
+bun run dev:biz:api
 
-# 동시 실행
-bun dev
+# Biz Web만 실행 (localhost:5173)
+bun run dev:biz:web
 ```
 
 ### Scripts
@@ -89,7 +98,7 @@ bun run lint         # 린트 체크
 bun run format       # 코드 포맷팅
 ```
 
-## Interview Phases
+## Biz: Interview Phases
 
 | Phase | Steps | 목적 |
 |-------|-------|------|
@@ -98,7 +107,7 @@ bun run format       # 코드 포맷팅
 | Tree | 11-17 | 사업 운영 (유입채널, 지표, MVP, 비용) |
 | Final | 18-20 | 마무리 (추가정보, 검증, 확정) |
 
-## API Endpoints
+## Biz: API Endpoints
 
 ### Projects
 - `GET /api/projects` - 프로젝트 목록

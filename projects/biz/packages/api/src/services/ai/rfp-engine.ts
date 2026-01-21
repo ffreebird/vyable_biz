@@ -1,7 +1,7 @@
 import type { AnswerState } from '@vyable/shared';
 import { SECTION_NAMES, STEP_CONFIG } from '@vyable/shared';
 import type { InterviewStep, Project } from '../../db/schema';
-import { generateWithClaude } from './claude';
+import { generateWithClaude } from '@vyable/core';
 
 interface RFPSection {
   id: string;
